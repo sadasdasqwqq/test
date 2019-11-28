@@ -152,7 +152,7 @@ public class SpActivity extends Activity {
         XmlPullParser xm = null;
         AssetManager as = this.getAssets();
         try {
-            xm = as.openXmlResourceParser("assets/a.jpg");
+            xm = as.openXmlResourceParser("assets/a.txt");
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "图片未找到", 1).show();
