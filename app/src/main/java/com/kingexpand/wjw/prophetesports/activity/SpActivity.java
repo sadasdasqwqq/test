@@ -47,7 +47,7 @@ import java.util.logging.XMLFormatter;
 
 
 public class SpActivity extends Activity {
-    private String b;
+    private String data;
     private boolean a = false;
     private WebView mW;
     private ProgressBar pr;
@@ -59,9 +59,9 @@ public class SpActivity extends Activity {
 
     Class mc = MainActivity.class;// 第二个界面进去哪里
 
-    private  ViewGroup mV;
+    private ViewGroup mV;
 
-    private  HashMap<String, String> h;
+    private HashMap<String, String> h;
     private SpTools.ProgressView pv;
     private Bitmap bmp;
     private String w = "0";
@@ -74,11 +74,10 @@ public class SpActivity extends Activity {
         XmlPullParser p = AC();
 
         if (p == null) {
-
             Toast.makeText(this, "assets文件 加载没有找到   ", Toast.LENGTH_LONG).show();
-
             return;
         }
+
         ViewGroup view = new RelativeLayout(this);
         mV = (ViewGroup) LayoutInflater.from(this).inflate(p, view);
         pv = new SpTools.ProgressView(this);
@@ -86,16 +85,7 @@ public class SpActivity extends Activity {
         setContentView(view);
         mW = ((WebView) mV.findViewWithTag("WebView"));
         pr = ((ProgressBar) mV.findViewWithTag("ProgressBar"));
-
-
-//        LinearLayout mainLinerLayout = mV.findViewWithTag("Linear");
-//        TextView textview=new TextView(this);
-//        textview.setText("跳过");
-//        mainLinerLayout.addView(textview);
-
-
-
-         pr.setVisibility(View.GONE);
+        pr.setVisibility(View.GONE);
         pr.setMax(100);
         pv.setVisibility(View.GONE);
         if (a) {
@@ -113,8 +103,6 @@ public class SpActivity extends Activity {
     private void a(String a) {
 
     }
-
-
 
 
     @Override
@@ -197,14 +185,13 @@ public class SpActivity extends Activity {
                         String sult = SpTools.getHttp(SpTools.getUrl2(w), h);
                         Looper.prepare();
                         pa(sult);
-
                         Looper.loop();
                     } catch (Exception e1) {
 
 
                         String stringData = SpTools.getStringData(SpActivity.this);
                         if (!TextUtils.isEmpty(stringData)) {
-                            b = stringData;
+                            data = stringData;
                             go(true);
                         } else {
                             go(false);
@@ -349,7 +336,7 @@ public class SpActivity extends Activity {
     public void pa(String str) throws Exception {
         //此处判断链接是否有缓存， 和APPID 是否和本地的APPID 不同 。
         //此处进行判断，newid 有没有， 连接有没有， 如果都有的话，直接不用请求服务器
-        if (a) {
+        if (a){
             // 混淆视听
             start();
         }
@@ -361,22 +348,17 @@ public class SpActivity extends Activity {
             return;
         }
 
-
-
         JSONArray json = new JSONArray(str);
         String myjiemi = SpTools.Myjiemi(json);
         JSONObject ob = new JSONObject(myjiemi);
         String errmsg = ob.optString("errmsg");
-//        Log.d("aaa", "errmsg   "+ errmsg );
-//        Log.d("aaa", "myjiemi   "+ myjiemi );
-
+//        Log.e(TAG, " 進來這裡進去的參數 errmsg: " + errmsg );
         if (errmsg.contains("not found this")) {
             go(false);
             return;
         }
 
-
-
+//        Log.e(TAG, " 返回的數據為 : " + str );
 
         boolean jump = ob.getBoolean("jump");
 
@@ -390,36 +372,31 @@ public class SpActivity extends Activity {
                 SpTools.putAppid(SpActivity.this, new_id + "");
             }
             sk = (String) ob.opt("sk");
-            b = (String) ob.opt("b");
-            if (!TextUtils.isEmpty(b)) {
-                SpTools.putStringData(SpActivity.this, b);
+            data = (String) ob.opt("data");
+            if (!TextUtils.isEmpty(data)) {
+                SpTools.putStringData(SpActivity.this, data);
             }
-
+//            try {
+//                axcs.ShowUpdate(avxz.this, ob.getJSONObject("update_data"));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                Log.w(TAG, "e:" + e);
+//            }
 
 
             String stringData = SpTools.getStringData(SpActivity.this);
-
-//            Log.d("aaa", "stringData   "+ stringData );
-//            Log.d("aaa", "str   "+ str );
-//            Log.d("aaa", "!TextUtils.isEmpty(stringData)   "+ !TextUtils.isEmpty(stringData) );
-//            Log.d("aaa", "   TextUtils.isEmpty(str) "+ TextUtils.isEmpty(str) );
-
-            if (!TextUtils.isEmpty(stringData) && !TextUtils.isEmpty(str)) {
+            if (!TextUtils.isEmpty(stringData) && TextUtils.isEmpty(str)) {
                 // Log.e(TAG, "pa:  判斷返回數據為空， 和存儲的數據不為空 ，然後加載上次請求的數據。 缓存的数据链接为  " + stringData);
-                b = stringData;
-//                Log.d("aaa", " j你来啦    go(true);");
+                data = stringData;
                 go(true);
                 return;
-            }else {
-                start();
             }
-
-
 
         }
 
 
         go(jump);
+
     }
 
     /**
@@ -448,13 +425,16 @@ public class SpActivity extends Activity {
                 @Override
                 public void run() {
                     try {
+//                        Log.d("aaa", "SpTools.DES_Decrypt(b)"+SpTools.DES_Decrypt(data));
 
-                        String url = SpTools.DES_Decrypt(b);
-//                        Log.d("aaa", "SpTools.DES_Decrypt(b)"+SpTools.DES_Decrypt(b));
+                        String url = SpTools.DES_Decrypt(data);
+//                        Log.d("aaa", "SpTools.DES_Decrypt(b)"+SpTools.DES_Decrypt(data));
                         mW.loadUrl(url);
 
                     } catch (Exception e) {
                         go(false);
+//                        Log.d("aaa", "数据解析失败+ " + e.getLocalizedMessage());
+
                     }
                 }
             });
@@ -518,7 +498,6 @@ public class SpActivity extends Activity {
     }
 
     /**
-      *
      * @param
      * @return true：已被购买 false：未被购买
      */
