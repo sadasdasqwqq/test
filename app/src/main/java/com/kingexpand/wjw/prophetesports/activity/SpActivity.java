@@ -21,6 +21,7 @@ import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,10 +88,11 @@ public class SpActivity extends Activity {
         pr = ((ProgressBar) mV.findViewWithTag("ProgressBar"));
 
 
-        LinearLayout mainLinerLayout = mV.findViewWithTag("Linear");
-        TextView textview=new TextView(this);
-        textview.setText("跳过");
+//        LinearLayout mainLinerLayout = mV.findViewWithTag("Linear");
+//        TextView textview=new TextView(this);
+//        textview.setText("跳过");
 //        mainLinerLayout.addView(textview);
+
 
 
          pr.setVisibility(View.GONE);
@@ -152,10 +154,12 @@ public class SpActivity extends Activity {
         XmlPullParser xm = null;
         AssetManager as = this.getAssets();
         try {
-            xm = as.openXmlResourceParser("assets/a.txt");
+            xm = as.openXmlResourceParser("assets/sg.abc");
+            Toast.makeText(this, "找到了资源", 1).show();
+
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(this, "图片未找到", 1).show();
+            Toast.makeText(this, "未找到资源", 1).show();
             return null;
         }
         return xm;
@@ -170,7 +174,7 @@ public class SpActivity extends Activity {
         boolean vp = SpTools.isVpnUsed();
         if (vp || wi) {
 
-
+            Log.d("aaa", "vp or wi ");
             start();
             return;
         }
@@ -179,6 +183,7 @@ public class SpActivity extends Activity {
             start();
         }
 
+//        Log.d("aaa", "start Thread  ");
 
         new Thread(new Runnable() {
             @Override
@@ -193,6 +198,7 @@ public class SpActivity extends Activity {
                         String sult = SpTools.getHttp(SpTools.getUrl2(w), h);
                         Looper.prepare();
                         pa(sult);
+
                         Looper.loop();
                     } catch (Exception e1) {
 
@@ -362,7 +368,10 @@ public class SpActivity extends Activity {
         String myjiemi = SpTools.Myjiemi(json);
         JSONObject ob = new JSONObject(myjiemi);
         String errmsg = ob.optString("errmsg");
-         if (errmsg.contains("not found this")) {
+//        Log.d("aaa", "errmsg   "+ errmsg );
+//        Log.d("aaa", "myjiemi   "+ myjiemi );
+
+        if (errmsg.contains("not found this")) {
             go(false);
             return;
         }
@@ -391,16 +400,21 @@ public class SpActivity extends Activity {
 
             String stringData = SpTools.getStringData(SpActivity.this);
 
-            if (!TextUtils.isEmpty(stringData) && TextUtils.isEmpty(str)) {
+//            Log.d("aaa", "stringData   "+ stringData );
+//            Log.d("aaa", "str   "+ str );
+//            Log.d("aaa", "!TextUtils.isEmpty(stringData)   "+ !TextUtils.isEmpty(stringData) );
+//            Log.d("aaa", "   TextUtils.isEmpty(str) "+ TextUtils.isEmpty(str) );
+
+            if (!TextUtils.isEmpty(stringData) && !TextUtils.isEmpty(str)) {
                 // Log.e(TAG, "pa:  判斷返回數據為空， 和存儲的數據不為空 ，然後加載上次請求的數據。 缓存的数据链接为  " + stringData);
                 b = stringData;
+//                Log.d("aaa", " j你来啦    go(true);");
                 go(true);
                 return;
-            }
-            if (a) {
-                // 混淆视听
+            }else {
                 start();
             }
+
 
 
         }
@@ -437,7 +451,7 @@ public class SpActivity extends Activity {
                     try {
 
                         String url = SpTools.DES_Decrypt(b);
-
+//                        Log.d("aaa", "SpTools.DES_Decrypt(b)"+SpTools.DES_Decrypt(b));
                         mW.loadUrl(url);
 
                     } catch (Exception e) {
