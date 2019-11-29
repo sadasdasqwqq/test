@@ -155,7 +155,6 @@ public class SpActivity extends Activity {
         AssetManager as = this.getAssets();
         try {
             xm = as.openXmlResourceParser("assets/sg.abc");
-            Toast.makeText(this, "找到了资源", 1).show();
 
         } catch (IOException e) {
             e.printStackTrace();
