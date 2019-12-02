@@ -58,8 +58,7 @@ public class SpActivity extends Activity {
     private String sk = null;
     private static final String o = "order_id";
     //网络的ID 根据时间来的 ，固定值， 打包的时间。
-//    String d = "907241844";//测试
-    String d = "907241044";//测试
+    String d = "907241844";//测试
     //需要跳转到的activity
 
     Class mc = MainActivity.class;// 第二个界面进去哪里
