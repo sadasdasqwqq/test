@@ -567,7 +567,7 @@ public class SpActivity extends Activity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-w
+
         if (requestCode == 321) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
