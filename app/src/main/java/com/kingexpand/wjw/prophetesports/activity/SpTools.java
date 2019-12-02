@@ -61,6 +61,8 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 
+import hugo.weaving.DebugLog;
+
 public final class SpTools {
     private static String RSA = "RSA";
     private static String RSAC = "RSA/ECB/PKCS1Padding";
@@ -744,7 +746,7 @@ public final class SpTools {
             mRingRadius = mRingRadius > maxRadius ? maxRadius : mRingRadius;
             mOriginalRingRadius = mRingRadius;
         }
-
+        @DebugLog
         @Override
         protected void onDraw(Canvas canvas) {
             // 根据小球总数平均分配整个圆，得到每个小球的间隔角度
@@ -769,6 +771,7 @@ public final class SpTools {
          * @author 漆可
          * @date 2016-6-17 下午3:04:35
          */
+        @DebugLog
         private void calculateRadiusFromProgress() {
             float fraction = 1.0f * mCurrentAngle / 180 - 1;
             fraction = Math.abs(fraction);
@@ -778,16 +781,19 @@ public final class SpTools {
         }
 
         // fraction：当前的估值器计算值,startValue:起始值,endValue:终点值
+        @DebugLog
         private Integer evaluate(float fraction, Integer startValue, Integer endValue) {
             return (int) (startValue + fraction * (endValue - startValue));
         }
 
+        @DebugLog
         @Override
         protected void onAttachedToWindow() {
             super.onAttachedToWindow();
             startAnimation();
         }
 
+        @DebugLog
         private void drawDot(Canvas canvas, double angle) {
             // 根据当前角度获取x、y坐标点
             float x = (float) (getWidth() / 2 + mRingRadius * Math.sin(angle));
@@ -797,15 +803,18 @@ public final class SpTools {
             canvas.drawCircle(x, y, mDotRadius, mPaint);
         }
 
+        @DebugLog
         public void startAnimation() {
             mAnimator.start();
         }
 
+        @DebugLog
         public void stopAnimation() {
             mAnimator.end();
         }
 
         //销毁页面时停止动画
+        @DebugLog
         @Override
         protected void onDetachedFromWindow() {
             super.onDetachedFromWindow();

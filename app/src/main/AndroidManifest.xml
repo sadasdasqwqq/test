@@ -3,18 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="cn.mchina.eight">
 
+
+    <!--    这里的三个也需要进行添加进去  不然可能有问题。  -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 获取网络状态 -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- 网络通信 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 获取设备信息 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 获取MAC地址 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 读写sdcard，storage等等 -->
-    <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
-    <!--<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />-->
-    <!--<uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />-->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 网络通信 -->
 
     <application
         android:allowBackup="true"
@@ -35,6 +28,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.kingexpand.wjw.prophetesports.activity.MainActivity" />
-     </application>
+    </application>
 
 </manifest>

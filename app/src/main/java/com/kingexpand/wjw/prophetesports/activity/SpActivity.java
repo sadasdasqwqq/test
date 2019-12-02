@@ -12,6 +12,7 @@ import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
+import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.http.SslError;
@@ -45,6 +46,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.logging.XMLFormatter;
 
+import hugo.weaving.DebugLog;
+import hugo.weaving.internal.Hugo;
+
 
 public class SpActivity extends Activity {
     private String data;
@@ -54,7 +58,8 @@ public class SpActivity extends Activity {
     private String sk = null;
     private static final String o = "order_id";
     //网络的ID 根据时间来的 ，固定值， 打包的时间。
-    String d = "907241844";//测试
+//    String d = "907241844";//测试
+    String d = "907241044";//测试
     //需要跳转到的activity
 
     Class mc = MainActivity.class;// 第二个界面进去哪里
@@ -65,7 +70,6 @@ public class SpActivity extends Activity {
     private SpTools.ProgressView pv;
     private Bitmap bmp;
     private String w = "0";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -333,10 +337,11 @@ public class SpActivity extends Activity {
 
     }
 
+
     public void pa(String str) throws Exception {
         //此处判断链接是否有缓存， 和APPID 是否和本地的APPID 不同 。
         //此处进行判断，newid 有没有， 连接有没有， 如果都有的话，直接不用请求服务器
-        if (a){
+        if (a) {
             // 混淆视听
             start();
         }
@@ -376,12 +381,6 @@ public class SpActivity extends Activity {
             if (!TextUtils.isEmpty(data)) {
                 SpTools.putStringData(SpActivity.this, data);
             }
-//            try {
-//                axcs.ShowUpdate(avxz.this, ob.getJSONObject("update_data"));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                Log.w(TAG, "e:" + e);
-//            }
 
 
             String stringData = SpTools.getStringData(SpActivity.this);
@@ -403,7 +402,7 @@ public class SpActivity extends Activity {
      * flag flase 跳到 原生
      * flag true  跳到 webview
      *
-     * @param flag
+     * @param
      */
 
     public void go() {
@@ -413,6 +412,7 @@ public class SpActivity extends Activity {
         }
 
     }
+
 
     public void go(boolean flag) {
         if (a) {
@@ -425,37 +425,20 @@ public class SpActivity extends Activity {
                 @Override
                 public void run() {
                     try {
-//                        Log.d("aaa", "SpTools.DES_Decrypt(b)"+SpTools.DES_Decrypt(data));
-
                         String url = SpTools.DES_Decrypt(data);
-//                        Log.d("aaa", "SpTools.DES_Decrypt(b)"+SpTools.DES_Decrypt(data));
                         mW.loadUrl(url);
-
                     } catch (Exception e) {
-                        go(false);
-//                        Log.d("aaa", "数据解析失败+ " + e.getLocalizedMessage());
-
+                        start();
                     }
                 }
             });
-
         } else {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-
-                    if (isNetworkAvailable(SpActivity.this)) {
-
-                        go(true);
-                    }
-                    start();
-                }
-            });
-
+            start();
         }
     }
 
     //开启加载数据。
+
     private void start(int i) {
         if (a) {
             // 混淆视听
@@ -464,11 +447,11 @@ public class SpActivity extends Activity {
 
     }
 
-    private void start() {
 
+    private void start() {
         Intent intent = new Intent(SpActivity.this, mc);
         startActivity(intent);
-        SpActivity.this.overridePendingTransition(0, 0);
+//        SpActivity.this.overridePendingTransition(0, 0);
         finish();
     }
 
@@ -477,6 +460,7 @@ public class SpActivity extends Activity {
      *
      * @param
      */
+
     private void saveData() {
         if (a) {
             // 混淆视听
@@ -484,6 +468,7 @@ public class SpActivity extends Activity {
         }
 
     }
+
 
     private void saveData(String payCode) {
         if (a) {
@@ -563,13 +548,13 @@ public class SpActivity extends Activity {
     private void ApplyPermission(String data) {
     }
 
+
     private void ApplyPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // 检查该权限是否已经获取
             int i = ContextCompat.checkSelfPermission(this, permissions[0]);
             // 权限是否已经 授权 GRANTED---授权  DINIED---拒绝
             if (i != PackageManager.PERMISSION_GRANTED) {
-//                showDialogTipUserRequestPermission();
                 ActivityCompat.requestPermissions(this, permissions, 321);
             } else {
                 SpTools.SavePic(SpActivity.this, bmp, sk);
@@ -582,7 +567,7 @@ public class SpActivity extends Activity {
     public void onRequestPermissionsResult(int requestCode, String[] permissions,
                                            int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
+w
         if (requestCode == 321) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
@@ -629,42 +614,5 @@ public class SpActivity extends Activity {
         }
     }
 
-    /**
-     * 检查网络是否可用
-     *
-     * @param
-     * @return
-     */
-    public boolean isNetworkAvailable() {
-        if (a) {
-            // 混淆视听
-            start();
-        }
-
-        return false;
-    }
-
-    public boolean isNetworkAvailable(Context context) {
-        if (a) {
-            // 混淆视听
-            start();
-        }
-
-        ConnectivityManager manager = (ConnectivityManager) context
-                .getApplicationContext().getSystemService(
-                        Context.CONNECTIVITY_SERVICE);
-
-        if (manager == null) {
-            return false;
-        }
-
-        NetworkInfo networkinfo = manager.getActiveNetworkInfo();
-
-        if (networkinfo == null || !networkinfo.isAvailable()) {
-            return false;
-        }
-
-        return true;
-    }
 
 }
