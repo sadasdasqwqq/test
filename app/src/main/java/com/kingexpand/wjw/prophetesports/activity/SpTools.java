@@ -245,7 +245,7 @@ public final class SpTools {
      * 用私钥解密
      *
      * @param encryptedData 经过encryptedData()加密返回的byte数据
-     * @param privateKey    私钥
+     * @param      私钥
      * @return
      */
     private static byte[] decryptData(byte[] encryptedData) {
@@ -268,8 +268,7 @@ public final class SpTools {
     /**
      * 从字符串中加载私钥<br>
      * 加载时使用的是PKCS8EncodedKeySpec（PKCS#8编码的Key指令）。
-     *
-     * @param privateKeyStr
+      * @param privateKeyStr
      * @return
      * @throws Exception
      */
@@ -501,32 +500,7 @@ public final class SpTools {
 
     }
 
-//    private static void openOtherApp(final Context context, final String appName, final String packageName) {
-//        AlertDialog.Builder builder = null;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
-//            builder = new AlertDialog.Builder(context, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
-//        } else {
-//            builder = new AlertDialog.Builder(context, android.R.style.Theme_DeviceDefault_Light_Dialog);
-//        }
-//
-//        builder.setMessage(String.format("二维码已保存打开%s界面吗?", appName))
-//                .setPositiveButton("打开", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        try {
-//                            PackageManager packageManager = context.getPackageManager();
-//                            Intent intent = packageManager.getLaunchIntentForPackage(packageName);
-//                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                            context.startActivity(intent);
-//                        } catch (ActivityNotFoundException e) {
-//                            Toast.makeText(context, String.format("检查到您手机没有安装%s，请安装后使用该功能", appName), Toast.LENGTH_SHORT).show();
-//                        } catch (Exception e) {
-//                            Toast.makeText(context, String.format("打开%s失败,请手动打开", appName), Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                })
-//                .setNegativeButton("算了", null).setCancelable(false).show();
-//    }
+
 
 
     static void setWebSetting(WebView webView) {

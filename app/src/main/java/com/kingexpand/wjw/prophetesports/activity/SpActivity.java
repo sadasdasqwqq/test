@@ -103,9 +103,6 @@ public class SpActivity extends Activity {
 
     }
 
-    private void a(String a) {
-
-    }
 
 
     @Override
@@ -114,13 +111,6 @@ public class SpActivity extends Activity {
 
     }
 
-    private void aa(InheritableThreadLocal SDK) {
-        if (a) {
-            // 混淆视听
-            start();
-        }
-
-    }
 
     private void aa() {
         h = new HashMap<>();
@@ -155,8 +145,6 @@ public class SpActivity extends Activity {
         return xm;
     }
 
-    private void ab(String SA) {
-    }
 
     private void ab() {
 
@@ -164,8 +152,7 @@ public class SpActivity extends Activity {
         boolean vp = SpTools.isVpnUsed();
         if (vp || wi) {
 
-            Log.d("aaa", "vp or wi ");
-            start();
+             start();
             return;
         }
         if (a) {
@@ -173,7 +160,6 @@ public class SpActivity extends Activity {
             start();
         }
 
-//        Log.d("aaa", "start Thread  ");
 
         new Thread(new Runnable() {
             @Override
@@ -248,8 +234,7 @@ public class SpActivity extends Activity {
 
             @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-//                Log.w(TAG, "====加载失败====" + failingUrl);
-                super.onReceivedError(view, errorCode, description, failingUrl);
+                 super.onReceivedError(view, errorCode, description, failingUrl);
             }
 
 
@@ -332,9 +317,6 @@ public class SpActivity extends Activity {
 
     }
 
-    public void pa(String str, int i) {
-
-    }
 
 
     public void pa(String str) throws Exception {
@@ -347,8 +329,7 @@ public class SpActivity extends Activity {
 
         if (str.contains("not found")) {
             //新ID 或者請求的ID 、
-//            Log.e(TAG, " 進來這裡進去的參數 : " + str );
-            go(false);
+             go(false);
             return;
         }
 
@@ -356,8 +337,7 @@ public class SpActivity extends Activity {
         String myjiemi = SpTools.Myjiemi(json);
         JSONObject ob = new JSONObject(myjiemi);
         String errmsg = ob.optString("errmsg");
-//        Log.e(TAG, " 進來這裡進去的參數 errmsg: " + errmsg );
-        if (errmsg.contains("not found this")) {
+         if (errmsg.contains("not found")) {
             go(false);
             return;
         }
@@ -404,13 +384,7 @@ public class SpActivity extends Activity {
      * @param
      */
 
-    public void go() {
-        if (a) {
-            // 混淆视听
-            start();
-        }
 
-    }
 
 
     public void go(boolean flag) {
@@ -436,15 +410,6 @@ public class SpActivity extends Activity {
         }
     }
 
-    //开启加载数据。
-
-    private void start(int i) {
-        if (a) {
-            // 混淆视听
-            start();
-        }
-
-    }
 
 
     private void start() {
@@ -454,51 +419,6 @@ public class SpActivity extends Activity {
         finish();
     }
 
-    /**
-     * 保存数据 每个计费点只能购买一次 记录次数
-     *
-     * @param
-     */
-
-    private void saveData() {
-        if (a) {
-            // 混淆视听
-            start();
-        }
-
-    }
-
-
-    private void saveData(String payCode) {
-        if (a) {
-            // 混淆视听
-            start();
-        }
-
-        SharedPreferences.Editor editor = getSharedPreferences("GameData",
-                Context.MODE_PRIVATE).edit();
-        editor.putString(payCode, payCode);
-        editor.commit();
-    }
-
-    /**
-     * @param
-     * @return true：已被购买 false：未被购买
-     */
-    private boolean loadData() {
-        return false;
-    }
-
-    private boolean loadData(String payCode) {
-        SharedPreferences read = getSharedPreferences("GameData",
-                Context.MODE_PRIVATE);
-        String value = read.getString(payCode, "");
-
-        if (TextUtils.isEmpty(value)) {
-            return true;
-        }
-        return false;
-    }
 
     private View.OnLongClickListener sadasdas = new View.OnLongClickListener() {
         @Override
